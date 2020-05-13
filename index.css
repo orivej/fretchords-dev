@@ -9,7 +9,11 @@
 }
 
 td:nth-child(4n+1) {
-  border-right: 1px solid black
+  border-right: 1px solid black;
+}
+
+.active {
+  text-align: center;
 }
 
 /* https://en.wikipedia.org/wiki/File:Scriabin-Circle.svg */
