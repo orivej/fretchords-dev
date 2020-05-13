@@ -25,6 +25,14 @@ DOMImport = (tag) ~>
 notes = <[C C# D D# E F F# G G# A A# B]>
 tones = [note + i for i from 1 to 7 for note in notes]
 
+tunings =
+  '': ''
+  Banjo: 'G4 D3 G3 B3 D4'
+  Bass: 'E1 A1 D2 G2'
+  Guitar: 'E2 A2 D3 G3 B3 E4'
+  Ukulele: 'G4 C4 E4 A4'
+  Violin: 'G3 D4 A4 E5'
+
 Fretboard = componentize class Fretboard extends R.Component
   ->
     @state = @model =
@@ -49,7 +57,7 @@ Fretboard = componentize class Fretboard extends R.Component
 App = componentize class App extends R.Component
   ->
     @state = @model =
-      tuning: 'E2 A2 D3 G3 B3 E4'
+      tuning: tunings.Guitar
       nfrets: 12
   onChangeTuning: (e) ~>
     @model.tuning = e.target.value
@@ -61,13 +69,9 @@ App = componentize class App extends R.Component
     div do
       form do
         label 'Tuning: ',
-          input type: \search, list: \tunings, value: @state.tuning, onChange: @onChangeTuning
-          datalist id: \tunings,
-            option value: 'G4 D3 G3 B3 D4', 'Banjo'
-            option value: 'E1 A1 D2 G2', 'Bass'
-            option value: 'E2 A2 D3 G3 B3 E4', 'Guitar'
-            option value: 'G4 C4 E4 A4', 'Ukulele'
-            option value: 'G3 D4 A4 E5', 'Violin'
+          input type: \search, value: @state.tuning, onChange: @onChangeTuning
+          select value: @state.tuning, onChange: @onChangeTuning,
+            [option key: k, value: v, k for k, v of tunings]
         label className: \nfrets, 'Frets: ',
           input type: \number, min: 0, max: 24, value: @state.nfrets, onChange: @onChangeFrets
       div className: \fretboards,
