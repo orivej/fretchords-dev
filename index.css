@@ -12,8 +12,8 @@ label {
   margin-right: 2ex;
 }
 
-.nfrets input {
-  width: 2em;
+input[type=number] {
+  width: 3em;
 }
 
 td:nth-child(4n+1) {
