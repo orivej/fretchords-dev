@@ -39,7 +39,7 @@ Fretboard = componentize class Fretboard extends R.Component
       note-offset = tone-offset % 12
       td {
         key: j
-        className: if @state.active-notes[note-offset] then \active
+        className: if @state.active-notes[note-offset] then 'c' + note-offset
         onClick: ~> @toggleNote note-offset
       } tones[tone-offset]
     row = (i) -> tr key: i, [col i, j for j from 0 to 12]

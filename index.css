@@ -8,7 +8,16 @@
   margin-right: 1em;
 }
 
-.active {
-  color: white;
-  background-color: black;
-}
+/* https://en.wikipedia.org/wiki/File:Scriabin-Circle.svg */
+.c0  { background-color: #FF0000; color: white; }
+.c7  { background-color: #FF7F00; color: white; }
+.c2  { background-color: #FFFF00; }
+.c9  { background-color: #33CC33; color: white; }
+.c4  { background-color: #C3F2FF; }
+.c11 { background-color: #8EC9FF; }
+.c6  { background-color: #7F8BFD; color: white; }
+.c1  { background-color: #9000FF; color: white; }
+.c8  { background-color: #BB75FC; }
+.c3  { background-color: #B7468B; color: white; }
+.c10 { background-color: #A9677C; color: white; }
+.c5  { background-color: #AB0034; color: white; }
