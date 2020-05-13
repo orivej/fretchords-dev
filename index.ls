@@ -22,8 +22,9 @@ DOMImport = (tag) ~>
   form label input select datalist option button hr img
 ]>.forEach DOMImport
 
-notes = <[C C# D D# E F F# G G# A A# B]>
-tones = [note + i for i from 1 to 7 for note in notes]
+notes =
+  '♯': <[C C♯ D D♯ E F F♯ G G♯ A A♯ B]>
+  '♭': <[C D♭ D E♭ E F G♭ G A♭ A B♭ B]>
 
 tunings =
   '': ''
@@ -41,6 +42,7 @@ Fretboard = componentize class Fretboard extends R.Component
     @model.active-notes[note] = not @model.active-notes[note]
     @setState @model
   render: ~>
+    tones = [note + i for i from 1 to 7 for note in notes[@props.naming]]
     strings = [tones.indexOf x for x in @props.tuning.split(' ').reverse() when x]
     col = (i, j) ~>
       tone-offset = strings[i] + j
@@ -57,25 +59,31 @@ Fretboard = componentize class Fretboard extends R.Component
 App = componentize class App extends R.Component
   ->
     @state = @model =
+      naming: '♯'
       tuning: tunings.Guitar
       nfrets: 12
-  onChangeTuning: (e) ~>
-    @model.tuning = e.target.value
-    @setState @model
-  onChangeFrets: (e) ~>
-    @model.nfrets = Number e.target.value
-    @setState @model
+      nboards: 12
+  onChangeNaming: (e) ~> @setState naming: e.target.value
+  onChangeTuning: (e) ~> @setState tuning: e.target.value
+  onChangeFrets: (e) ~> @setState nfrets: Number e.target.value
+  onChangeBoards: (e) ~> @setState nboards: Number e.target.value
   render: ~>
     div do
       form do
+        label 'Naming: ',
+          select value: @state.naming, onChange: @onChangeNaming,
+            option value: '♯', '♯'
+            option value: '♭', '♭'
         label 'Tuning: ',
           input type: \search, value: @state.tuning, onChange: @onChangeTuning
           select value: @state.tuning, onChange: @onChangeTuning,
             [option key: k, value: v, k for k, v of tunings]
         label className: \nfrets, 'Frets: ',
           input type: \number, min: 0, max: 24, value: @state.nfrets, onChange: @onChangeFrets
+        label className: \nboards, 'Boards: ',
+          input type: \number, min: 1, value: @state.nboards, onChange: @onChangeBoards
       div className: \fretboards,
-        for i from 1 to 3*4
+        for i from 1 to @state.nboards
           div key: i, className: \fretboard, Fretboard @state
 
 ReactDOM.render App(), document.getElementById 'main'
