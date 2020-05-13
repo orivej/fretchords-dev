@@ -1,11 +1,19 @@
-#main {
+label {
+  margin-right: 1ex;
+}
+
+.fretboards {
   display: flex;
   flex-wrap: wrap;
 }
 
 .fretboard {
-  margin-bottom: 1em;
-  margin-right: 1em;
+  margin-top: 1ex;
+  margin-right: 2ex;
+}
+
+.nfrets input {
+  width: 2em;
 }
 
 td:nth-child(4n+1) {
