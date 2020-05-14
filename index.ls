@@ -32,6 +32,7 @@ tunings =
   Banjo: 'G4 D3 G3 B3 D4'
   Bass: 'E1 A1 D2 G2'
   Guitar: 'E2 A2 D3 G3 B3 E4'
+  Lute: 'D2 F2 G2 C3 F3 A3 D4 G4'
   Ukulele: 'G4 C4 E4 A4'
   Violin: 'G3 D4 A4 E5'
 

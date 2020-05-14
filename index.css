@@ -20,6 +20,10 @@ input[type=number] {
   width: 3em;
 }
 
+td {
+  cursor: pointer;
+}
+
 td:nth-child(4n+1) {
   border-right: 1px solid black;
 }
