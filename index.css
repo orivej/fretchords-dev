@@ -2,6 +2,10 @@ label {
   margin-right: 1ex;
 }
 
+table {
+  border-collapse: collapse;
+}
+
 .fretboards {
   display: flex;
   flex-wrap: wrap;
