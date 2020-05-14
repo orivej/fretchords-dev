@@ -1,4 +1,5 @@
-R = React
+R = preact
+ReactDOM = R
 
 componentize = (elem) ->
   ->
@@ -71,7 +72,7 @@ App = componentize class App extends R.Component
             option value: '♯', '♯'
             option value: '♭', '♭'
         label 'Tuning: ',
-          input type: \search, value: @state.tuning, onChange: @onChangeTuning
+          input type: \search, value: @state.tuning, onInput: @onChangeTuning
           select value: @state.tuning, onChange: @onChangeTuning,
             [option key: k, value: v, k for k, v of tunings]
         label className: \nnecks, 'Necks: ',
