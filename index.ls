@@ -6,12 +6,12 @@ componentize = (elem) ->
     args = [...arguments]
     while args.length
       arg = args.shift!
-      if (typeof! arg is 'Object') and (not React.isValidElement arg)
+      if (typeof! arg is 'Object') and (not R.isValidElement arg)
         props <<< arg
       else
         args.unshift arg
         break
-    React.createElement elem, props, ...args
+    R.createElement elem, props, ...args
 
 DOMImport = (tag) ~>
   @[tag] = componentize tag
@@ -35,12 +35,9 @@ tunings =
   Violin: 'G3 D4 A4 E5'
 
 Fretboard = componentize class Fretboard extends R.Component
-  ->
-    @state = @model =
-      active-notes: {}
+  state: {}
   toggleNote: (note) ~>
-    @model.active-notes[note] = not @model.active-notes[note]
-    @setState @model
+    @setState (note): not @state[note]
   render: ~>
     tones = [note + i for i from 1 to 7 for note in notes[@props.naming]]
     strings = [tones.indexOf x for x in @props.tuning.split(' ').reverse() when x]
@@ -49,7 +46,7 @@ Fretboard = componentize class Fretboard extends R.Component
       note-offset = tone-offset % 12
       td {
         key: j
-        className: if @state.active-notes[note-offset] then 'active c' + note-offset
+        className: if @state[note-offset] then 'active c' + note-offset
         onClick: ~> @toggleNote note-offset
       } tones[tone-offset]
     row = (i) ~> tr key: i, [col i, j for j from 0 to @props.nfrets]
@@ -57,16 +54,15 @@ Fretboard = componentize class Fretboard extends R.Component
     table tbody rows
 
 App = componentize class App extends R.Component
-  ->
-    @state = @model =
-      naming: '♯'
-      tuning: tunings.Guitar
-      nfrets: 12
-      nboards: 12
+  state:
+    naming: '♯'
+    tuning: tunings.Guitar
+    nnecks: 12
+    nfrets: 12
   onChangeNaming: (e) ~> @setState naming: e.target.value
   onChangeTuning: (e) ~> @setState tuning: e.target.value
+  onChangeNecks: (e) ~> @setState nnecks: Number e.target.value
   onChangeFrets: (e) ~> @setState nfrets: Number e.target.value
-  onChangeBoards: (e) ~> @setState nboards: Number e.target.value
   render: ~>
     div do
       form do
@@ -78,12 +74,12 @@ App = componentize class App extends R.Component
           input type: \search, value: @state.tuning, onChange: @onChangeTuning
           select value: @state.tuning, onChange: @onChangeTuning,
             [option key: k, value: v, k for k, v of tunings]
+        label className: \nnecks, 'Necks: ',
+          input type: \number, min: 0, value: @state.nnecks, onChange: @onChangeNecks
         label className: \nfrets, 'Frets: ',
-          input type: \number, min: 0, max: 24, value: @state.nfrets, onChange: @onChangeFrets
-        label className: \nboards, 'Boards: ',
-          input type: \number, min: 1, value: @state.nboards, onChange: @onChangeBoards
+          input type: \number, min: 0, value: @state.nfrets, onChange: @onChangeFrets
       div className: \fretboards,
-        for i from 1 to @state.nboards
+        for i from 1 to @state.nnecks
           div key: i, className: \fretboard, Fretboard @state
 
 ReactDOM.render App(), document.getElementById 'main'
