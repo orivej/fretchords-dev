@@ -80,6 +80,7 @@ App = componentize class App extends R.Component
           input type: \number, min: 0, value: @state.nnecks, onChange: @onChangeNecks
         label className: \nfrets, 'Frets: ',
           input type: \number, min: 0, value: @state.nfrets, onChange: @onChangeFrets
+        a href: 'https://github.com/orivej/fretchords#usage', target: '_blank', 'Help'
       div className: \fretboards,
         for i from 1 to @state.nnecks
           div key: i, className: \fretboard, Fretboard @state

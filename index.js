@@ -171,7 +171,10 @@
         min: 0,
         value: this.state.nfrets,
         onChange: this.onChangeFrets
-      }))), div({
+      })), a({
+        href: 'https://github.com/orivej/fretchords#usage',
+        target: '_blank'
+      }, 'Help')), div({
         className: 'fretboards'
       }, (function(){
         var i$, to$, results$ = [];

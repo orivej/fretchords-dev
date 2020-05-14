@@ -7,7 +7,9 @@ This web app can help you choose a fingering for a chord.
 1. Visit https://orivej.github.io/fretchords/
 2. Click on the notes of your chord. For example, this is a E♭ major triad (E♭-G-B♭):
 
-    ![screenshot](screenshot.png)
+   ![screenshot](screenshot.png)
+
+   It highlights the frets of the fingerboard with the selected notes — a G3 (G of the small octave) on the open third string, an E♭3 on the first fret of the fourth string, etc. until G4 on the 12th fret of the third string. The leftmost vertical line represents the nut that supports the strings, and the other vertical lines are there to aid counting the frets. The empty fingerboard to the right can be used for another chord.
 
 3. Choose what and where to play. In the case of E♭ some of the options are:
 
@@ -23,4 +25,4 @@ This web app can help you choose a fingering for a chord.
 
 # About colors
 
-The color scheme is based on Scriabin's [Tastiera per Luce](https://en.wikipedia.org/wiki/Clavier_à_lumières).
+The color scheme is based on Scriabin's [Tastiera per Luce](https://en.wikipedia.org/wiki/Clavier_à_lumières). It makes fifth notes (e.g. a tonic and a dominant of a chord) similar in color.
