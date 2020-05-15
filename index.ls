@@ -18,10 +18,12 @@ DOMImport = (tag) ~>
   @[tag] = componentize tag
 
 <[
-  div nav ul ol li p a i b span small br h1 h2 h3
-  table caption thead tbody tr th td
+  div nav ul ol li p a i b span small sub br h1 h2 h3
+  table caption thead tbody tfoot tr th td
   form label input select datalist option button hr img
 ]>.forEach DOMImport
+
+note-offsets = C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11
 
 notes =
   '♯': <[C C♯ D D♯ E F F♯ G G♯ A A♯ B]>
@@ -36,13 +38,22 @@ tunings =
   Ukulele: 'G4 C4 E4 A4'
   Violin: 'G3 D4 A4 E5'
 
+rx-tone = /([A-G])(?:([#♯])|([b♭]))?([0-9])?/
+
+parse-tone = (s) ->
+  if m = rx-tone.exec s.toUpperCase!
+    [s, note, sharp, flat, octave] = m
+    Number(octave or 1) * 12 + note-offsets[note] + switch | sharp => 1 | flat => -1 | _ => 0
+
+format-tone = (tone, naming) ->
+  [notes[naming][tone % 12], sub Math.floor (tone / 12)]
+
 Fretboard = componentize class Fretboard extends R.Component
   state: {}
   toggleNote: (note) ~>
     @setState (note): not @state[note]
   render: ~>
-    tones = [note + i for i from 1 to 7 for note in notes[@props.naming]]
-    strings = [tones.indexOf x for x in @props.tuning.split(' ').reverse() when x]
+    strings = [parse-tone x for x in @props.tuning.split(' ').reverse() when x]
     col = (i, j) ~>
       tone-offset = strings[i] + j
       note-offset = tone-offset % 12
@@ -50,10 +61,11 @@ Fretboard = componentize class Fretboard extends R.Component
         key: j
         className: if @state[note-offset] then 'active c' + note-offset
         onClick: ~> @toggleNote note-offset
-      } tones[tone-offset]
+      } format-tone tone-offset, @props.naming
     row = (i) ~> tr key: i, [col i, j for j from 0 to @props.nfrets]
-    rows = [row i for ,i in strings]
-    table tbody rows
+    table do
+      tbody [row i for ,i in strings]
+      tfoot tr [td j for j from 0 to @props.nfrets]
 
 App = componentize class App extends R.Component
   state:

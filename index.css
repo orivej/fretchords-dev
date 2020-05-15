@@ -21,11 +21,20 @@ input[type=number] {
 }
 
 td {
+  padding: 0 5px;
+}
+
+tbody td {
   cursor: pointer;
 }
 
-td:nth-child(4n+1) {
+tbody td:nth-child(4n+1) {
   border-right: 1px solid black;
+}
+
+tfoot {
+  text-align: center;
+  font-size: 50%;
 }
 
 .active {
