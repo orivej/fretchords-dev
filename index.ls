@@ -78,12 +78,12 @@ App = componentize class App extends R.Component
   onChangeNecks: (e) ~> @setState nnecks: Number e.target.value
   onChangeFrets: (e) ~> @setState nfrets: Number e.target.value
   render: ~>
+    radio = (name, value) ~> input type: \radio, name: name, value: value,
+      checked: @state[name] == value, onChange: ~> @setState (name): value
     div do
       form do
-        label 'Naming: ',
-          select value: @state.naming, onChange: @onChangeNaming,
-            option value: '♯', '♯'
-            option value: '♭', '♭'
+        label (radio \naming, '♯'), '♯'
+        label (radio \naming, '♭'), '♭'
         label 'Tuning: ',
           input type: \search, value: @state.tuning, onInput: @onChangeTuning
           select value: @state.tuning, onChange: @onChangeTuning,

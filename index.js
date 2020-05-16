@@ -160,15 +160,21 @@
       });
     };
     App.prototype.render = function(){
-      var k, v, i;
-      return div(form(label('Naming: ', select({
-        value: this.state.naming,
-        onChange: this.onChangeNaming
-      }, option({
-        value: '♯'
-      }, '♯'), option({
-        value: '♭'
-      }, '♭'))), label('Tuning: ', input({
+      var radio, k, v, i, this$ = this;
+      radio = function(name, value){
+        return input({
+          type: 'radio',
+          name: name,
+          value: value
+        }, {
+          checked: this$.state[name] === value,
+          onChange: function(){
+            var ref$;
+            return this$.setState((ref$ = {}, ref$[name] = value, ref$));
+          }
+        });
+      };
+      return div(form(label(radio('naming', '♯'), '♯'), label(radio('naming', '♭'), '♭'), label('Tuning: ', input({
         type: 'search',
         value: this.state.tuning,
         onInput: this.onChangeTuning
