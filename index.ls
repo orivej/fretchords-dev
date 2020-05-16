@@ -53,7 +53,7 @@ Fretboard = componentize class Fretboard extends R.Component
   toggleNote: (note) ~>
     @setState (note): not @state[note]
   render: ~>
-    strings = [parse-tone x for x in @props.tuning.split(' ').reverse() when x]
+    strings = @props.tuning.split(' ').reverse!.map(parse-tone).filter((!= undefined))
     col = (i, j) ~>
       tone-offset = strings[i] + j
       note-offset = tone-offset % 12

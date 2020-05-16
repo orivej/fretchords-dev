@@ -74,15 +74,10 @@
       return this.setState((ref$ = {}, ref$[note] = !this.state[note], ref$));
     };
     Fretboard.prototype.render = function(){
-      var strings, res$, i$, ref$, len$, x, col, row, i, j, this$ = this;
-      res$ = [];
-      for (i$ = 0, len$ = (ref$ = this.props.tuning.split(' ').reverse()).length; i$ < len$; ++i$) {
-        x = ref$[i$];
-        if (x) {
-          res$.push(parseTone(x));
-        }
-      }
-      strings = res$;
+      var strings, col, row, i, j, this$ = this;
+      strings = this.props.tuning.split(' ').reverse().map(parseTone).filter((function(it){
+        return it !== undefined;
+      }));
       col = function(i, j){
         var toneOffset, noteOffset;
         toneOffset = strings[i] + j;
