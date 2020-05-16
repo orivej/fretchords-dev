@@ -9,11 +9,12 @@ table {
 .fretboards {
   display: flex;
   flex-wrap: wrap;
+  margin-left: -2ex;
 }
 
 .fretboard {
   margin-top: 1ex;
-  margin-right: 2ex;
+  padding-left: 2ex;
 }
 
 input[type=number] {
