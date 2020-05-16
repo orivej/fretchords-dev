@@ -46,7 +46,8 @@ parse-tone = (s) ->
     Number(octave or 1) * 12 + note-offsets[note] + switch | sharp => 1 | flat => -1 | _ => 0
 
 format-tone = (tone, naming) ->
-  [notes[naming][tone % 12], sub Math.floor (tone / 12)]
+  note = notes[naming][tone % 12]
+  [note[0], span className: \ss, note[1], br!, Math.floor (tone / 12)]
 
 Fretboard = componentize class Fretboard extends R.Component
   state: {}

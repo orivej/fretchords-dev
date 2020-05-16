@@ -64,7 +64,13 @@
     }
   };
   formatTone = function(tone, naming){
-    return [notes[naming][tone % 12], sub(Math.floor(tone / 12))];
+    var note;
+    note = notes[naming][tone % 12];
+    return [
+      note[0], span({
+        'class': 'ss'
+      }, note[1], br(), Math.floor(tone / 12))
+    ];
   };
   Fretboard = componentize(Fretboard = (function(superclass){
     var prototype = extend$((import$(Fretboard, superclass).displayName = 'Fretboard', Fretboard), superclass).prototype, constructor = Fretboard;
@@ -84,7 +90,7 @@
         noteOffset = toneOffset % 12;
         return td({
           key: j,
-          className: this$.state[noteOffset] ? 'active c' + noteOffset : void 8,
+          'class': this$.state[noteOffset] ? 'active c' + noteOffset : void 8,
           onClick: function(){
             return this$.toggleNote(noteOffset);
           }
@@ -187,14 +193,14 @@
         }
         return results$;
       }()))), label({
-        className: 'nnecks'
+        'class': 'nnecks'
       }, 'Necks: ', input({
         type: 'number',
         min: 0,
         value: this.state.nnecks,
         onChange: this.onChangeNecks
       })), label({
-        className: 'nfrets'
+        'class': 'nfrets'
       }, 'Frets: ', input({
         type: 'number',
         min: 0,
@@ -204,14 +210,14 @@
         href: 'https://github.com/orivej/fretchords#usage',
         target: '_blank'
       }, 'Help')), div({
-        className: 'fretboards'
+        'class': 'fretboards'
       }, (function(){
         var i$, to$, results$ = [];
         for (i$ = 1, to$ = this.state.nnecks; i$ <= to$; ++i$) {
           i = i$;
           results$.push(div({
             key: i,
-            className: 'fretboard'
+            'class': 'fretboard'
           }, Fretboard(this.state)));
         }
         return results$;
